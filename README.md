@@ -8,4 +8,5 @@ X to delete the current kiss in the screen
 
 # -- Checklist --
 [ ] Fix bouncing angle of the heart<br>
-[ ] Add score
+[ ] Add score<br>
+[ ] Make use of the map maker
