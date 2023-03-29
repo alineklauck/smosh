@@ -7,5 +7,5 @@ Space to shot a kiss<br>
 X to delete the current kiss in the screen
 
 # -- Checklist --
-[ ] Fix bouncing angle of the heart
+[ ] Fix bouncing angle of the heart<br>
 [ ] Add score
