@@ -1,16 +1,21 @@
-import java.awt.image.ImageObserver;
-import java.awt.Image;
+//import java.awt.image.ImageObserver;
+//import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Boy
 {
+    // POSIÇÃO E TAMANHO
     public static int x;
     public static int y;
-    public static int angle;
     public static final int height = 50;
     public static final int width = 50;
+    public static final int maxHEIGHT = (Game.HEIGHT * Game.SCALE) - height;
+    public static final int maxWIDTH = (Game.WIDTH * Game.SCALE) - width;
+
+    // MOVIMENTAÇÃO
+    public static int angle;
     public double dx;
     public double dy;
     public double speed;
@@ -25,23 +30,19 @@ public class Boy
     }
     
     public void tick() {
-        if (Boy.y + this.dy * this.speed + 50.0 >= Game.HEIGHT * 3) {
-            this.dy *= -(new Random().nextInt(1) + 1);
-        }
-        if (Boy.y + this.dy * this.speed <= 0.0) {
-            this.dy *= -(new Random().nextInt(1) + 1);
-        }
-        if (Boy.x + this.dx * this.speed + 50.0 >= Game.WIDTH * 3) {
-            this.dx *= -(new Random().nextInt(1) + 1);
-        }
-        else if (Boy.x + this.dx * this.speed <= 0.0) {
-            this.dx *= -(new Random().nextInt(1) + 1);
-        }
+        // VIRAR SE BATER NA PAREDE
+        if (Boy.y + this.dy * this.speed >= maxHEIGHT) {this.dy *= -(new Random().nextInt(1) + 1);}
+        if (Boy.y + this.dy * this.speed <= 0.0) {this.dy *= -(new Random().nextInt(1) + 1);}
+        if (Boy.x + this.dx * this.speed >= maxWIDTH) {this.dx *= -(new Random().nextInt(1) + 1);}
+        if (Boy.x + this.dx * this.speed <= 0.0) {this.dx *= -(new Random().nextInt(1) + 1);}
+
+        // ANDAR
         Boy.x += (int)(this.dx * this.speed);
         Boy.y += (int)(this.dy * this.speed);
     }
     
     public void render(final BufferedImage sp, final Graphics g) {
+        // DESENHAR
         g.drawImage(sp, Boy.x, Boy.y, 50, 50, null);
     }
 }

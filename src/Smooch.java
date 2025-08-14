@@ -1,7 +1,6 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
-import java.util.Random;
 
 public class Smooch
 {
@@ -23,9 +22,9 @@ public class Smooch
     
     public Smooch() {
         // ANGULO INICIAL EU ACHO
-        angle = new Random().nextInt(360);
+        this.angle = Math.random() * Math.PI * 2.0;
         this.dx = Math.cos(Math.toRadians(angle));
-        this.dy = Math.cos(Math.toRadians(angle));
+        this.dy = Math.sin(Math.toRadians(angle));
     }
     
     public void tick() {
@@ -47,17 +46,19 @@ public class Smooch
             System.out.println(Game.kisses);
         }
 
-        // SE ACERTAR O PLAYER VAI IR PRA UM LADO ALEATÓRIO (AS VEZES ENTRA NO PLAYER K)
+        // SE ACERTAR O PLAYER VAI IR PRA UM LADO ALEATÓRIO
         if (bounceCd == 0 && bounds.intersects(boundsPlayer)) {
-            this.angle = Math.random() * Math.PI * 2.0;   // 0..2π (radianos)
-            // direções: X usa cos, Y usa sin (sem multiplicar por speed aqui!)
+            this.angle = Math.random() * Math.PI * 2.0;
+            // CALCULOS MILENARES
             this.dx = Math.cos(this.angle);
             this.dy = Math.sin(this.angle);
-            // empurra um pouco pra fora pra não "grudar"
+            // EMPURRA UM POUCO PRA FORA PRA NÃO GRUDAR NO PLAYER
             Smooch.x += (int)(this.dx * 2.0);
             Smooch.y += (int)(this.dy * 2.0);
-            bounceCd = 6; // ~6 frames sem re-colidir
+            // COOLDOWN DA BATIDA PRA NÃO FICAR DOIDO
+            bounceCd = 6;
         }
+
         if (bounceCd > 0) {bounceCd--;}
 
         // ALTERA O X E Y DE ACORDO COM A VELOCIDADE

@@ -7,7 +7,9 @@ Space to shot a kiss<br>
 X to delete the current kiss in the screen
 
 # -- Checklist --
-[ ] Fix bouncing angle of the heart<br>
+[X] Fix bouncing angle of the heart<br>
 [ ] Add score<br>
 [ ] Make use of the map maker<br>
-[ ] Scale is not changing the walkable size of the map
+[X] Scale is not changing the walkable size of the map<br>
+[ ] Shift to run
+[ ] Rotate images to the direction they are running

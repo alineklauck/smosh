@@ -14,7 +14,7 @@ public class Game extends Canvas implements Runnable, KeyListener
     //TAMANHO DA JANELA
     public static int WIDTH = 240;
     public static int HEIGHT = 120;
-    public static int SCALE = 3;
+    public static int SCALE = 4;
 
     // IMAGENS
     public SpriteSheet sheet1; BufferedImage boySp; BufferedImage playerSp;

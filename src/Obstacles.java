@@ -3,8 +3,11 @@ import java.awt.Graphics;
 
 public class Obstacles
 {
+    // COORDENADAS
     public int x;
     public int y;
+
+    // TAMANHO
     public int height;
     public int width;
     
@@ -16,9 +19,11 @@ public class Obstacles
     }
     
     public void tick() {
+        // A LÓGICA É PRA FICAR AQUI
     }
     
     public void render(final Graphics g) {
+        // DESENHA QUADRADO :D
         g.setColor(Color.yellow);
         g.fillRect(this.x, this.y, this.width, this.height);
     }
