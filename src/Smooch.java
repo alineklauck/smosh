@@ -43,7 +43,6 @@ public class Smooch
         if (bounds.intersects(boundsBoy)) {
             Game.player.kissyRest = true;
             ++Game.kisses;
-            System.out.println(Game.kisses);
         }
 
         // SE ACERTAR O PLAYER VAI IR PRA UM LADO ALEATÓRIO

@@ -1,6 +1,6 @@
 //import java.awt.image.ImageObserver;
 //import java.awt.Image;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -41,8 +41,12 @@ public class Boy
         Boy.y += (int)(this.dy * this.speed);
     }
     
-    public void render(final BufferedImage sp, final Graphics g) {
-        // DESENHAR
-        g.drawImage(sp, Boy.x, Boy.y, 50, 50, null);
+    public void render(final BufferedImage sp, final Graphics2D g) {
+        double angleRad = Math.atan2(dy,dx) - Math.PI/2;
+        java.awt.geom.AffineTransform old = g.getTransform();
+        g.translate(Boy.x + width / 2, Boy.y + height/2);
+        g.rotate(angleRad);
+        g.drawImage(sp, -width/2, -height/2, width,height, null);
+        g.setTransform(old);
     }
 }

@@ -1,6 +1,6 @@
 //import java.awt.image.ImageObserver;
 //import java.awt.Image;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Player
@@ -22,6 +22,7 @@ public class Player
     int velocidadeMinima = 6;
     int velocidadeAtual = velocidadeMinima;
     int velocidadeMaxima = 9;
+    public double lastAngle = 0; 
 
     // VARIÁVEIS DE TAMANHO
     public static final int height = 50;
@@ -62,8 +63,20 @@ public class Player
         }
     }
     
-    public void render(final BufferedImage sp, final Graphics g) {
-        // DESENHA O PLAYER
-        g.drawImage(sp, Player.x, Player.y, 50, 50, null);
+    public void render(final BufferedImage sp, final Graphics2D g) {
+        double dx = 0, dy = 0;
+        if (up) dy -= 1;
+        if (down) dy += 1;
+        if (left) dx -= 1;
+        if (right) dx += 1;
+        if (dx != 0 || dy != 0) {
+            lastAngle = Math.atan2(dy, dx) - Math.PI/2;
+            
+        }
+        java.awt.geom.AffineTransform old = g.getTransform();
+        g.translate(Player.x + width/2, Player.y + height/2);
+        g.rotate(lastAngle);
+        g.drawImage(sp, -width/2, -height/2, width, height, null);
+        g.setTransform(old);
     }
 }

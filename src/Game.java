@@ -1,20 +1,26 @@
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.Graphics2D;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.awt.event.KeyListener;
 import java.awt.Canvas;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.GraphicsEnvironment;
+import java.awt.FontFormatException;
 
 public class Game extends Canvas implements Runnable, KeyListener
 {   
     //TAMANHO DA JANELA
-    public static int WIDTH = 240;
-    public static int HEIGHT = 120;
-    public static int SCALE = 4;
+    public static final int WIDTH = 240;
+    public static final int HEIGHT = 120;
+    public static final int SCALE = 4;
 
     // IMAGENS
     public SpriteSheet sheet1; BufferedImage boySp; BufferedImage playerSp;
@@ -23,6 +29,7 @@ public class Game extends Canvas implements Runnable, KeyListener
     public SpriteSheet kiss; BufferedImage kissSp;
     public SpriteSheet score; BufferedImage scoreSp;
     public BufferedImage layer;
+    public Font arcadeFont;
 
     // OBJETOS
     public static Player player = new Player(60, HEIGHT);
@@ -37,6 +44,21 @@ public class Game extends Canvas implements Runnable, KeyListener
         this.bg = new SpriteSheet("res/grama.png");
         this.bush = new SpriteSheet("res/bush.png");
         this.kiss = new SpriteSheet("res/heart.png");
+
+        // COLETANDO FONTE
+        try {
+            // Carrega usando o classloader
+            arcadeFont = Font.createFont(Font.TRUETYPE_FONT, 
+                getClass().getResourceAsStream("/res/Super Sunkissed.ttf"))
+                .deriveFont(60f); // tamanho da fonte em pontos
+
+            // Registra no sistema gráfico
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(arcadeFont);
+
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
 
         // DESENHANDO SPRITS (X Y W H) TAMANHO DINAMICO
         this.boySp = this.sheet1.getSprite(0, 0, 50, 50);
@@ -76,12 +98,7 @@ public class Game extends Canvas implements Runnable, KeyListener
         Game.boy.tick();
 
         // SÓ TICKA SE EXISTIR TIRO NO MAPA
-        switch (Game.kissy) {
-            case 1: {
-                Game.smch.tick();
-                break;
-            }
-        }
+        if (Game.kissy > 0) {Game.smch.tick();}
     }
     
     // IMAGEM NA TELA
@@ -92,7 +109,8 @@ public class Game extends Canvas implements Runnable, KeyListener
             this.createBufferStrategy(3);
             return;
         }
-        Graphics g = bs.getDrawGraphics();
+        Graphics gn = bs.getDrawGraphics();
+        Graphics2D g = (Graphics2D) gn;
         // MOSTRA AS COISA (NÃO SEI OQ É this.layer) NA ORDEM DE CAMADAS FUNDO > EZREAL > ZOE > TIRO > BORDA
         // DESENHA FUNDO DIRETO NA JANELA (FIXO)
         g.drawImage(this.layer, 0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE, null);
@@ -101,14 +119,14 @@ public class Game extends Canvas implements Runnable, KeyListener
         Game.boy.render(this.boySp, g);
         Game.player.render(this.playerSp, g);
         // RENDERIZA TIRO APENAS SE EXISTIR
-        switch (Game.kissy) {
-            case 1: {
-                Game.smch.render(this.kissSp, g);
-                break;
-            }
-        }
+        if (Game.kissy > 0) {Game.smch.render(this.kissSp, g);}
+        
         // DESENHA BORDA (FIXO)
         g.drawImage(this.bushSp, 0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE, null);
+        // PONTUAÇÃO
+        g.setColor(Color.WHITE);
+        g.setFont(arcadeFont);
+        g.drawString("" + Game.kisses, 20, 55);
         // MOSTRA JANELA
         bs.show();
     }
@@ -128,7 +146,7 @@ public class Game extends Canvas implements Runnable, KeyListener
     @Override
     // CONTROLES DO PLAYER (APERTAR TRIGGER)
     public void keyTyped(final KeyEvent e) {
-
+        
     }
     
     // CONTROLES DO PLAYER (SEGURAR O TRIGGER)

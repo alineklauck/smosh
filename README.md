@@ -8,9 +8,14 @@ X to delete the current kiss in the screen
 
 # -- Checklist --
 [X] Fix bouncing angle of the heart<br>
-[ ] Add score<br>
+[X] Add score<br>
 [ ] Make use of the map maker<br>
 [X] Scale is not changing the walkable size of the map<br>
 [X] Shift to run
-[ ] Rotate images to the direction they are facing
+[X] Rotate player and boy to the direction they are facing
 [ ] Make Player leave trail when running
+
+# -- Credits --
+
+Characters by **[League of Legends](https://www.leagueoflegends.com/pt-br/)**<br>
+Super Sunkissed font by **[fsuarez913](https://www.dafont.com/pt/super-sunkissed.font?text=10279)**
