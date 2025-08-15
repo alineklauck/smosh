@@ -142,6 +142,7 @@ public class Game extends Canvas implements Runnable, KeyListener
             // TIRO E EXCLUIR TIRO
         if (e.getKeyCode() == 32) {Game.player.kissy = true;} //Espaço
         if (e.getKeyCode() == 88) {Game.player.kissyRest = true;} //X
+        if (e.getKeyCode() == KeyEvent.VK_SHIFT) {Game.player.correr = true;} //Shift
     }
     
     // CONTROLES DO PLAYER (SOLTAR O TRIGGER)
@@ -155,6 +156,7 @@ public class Game extends Canvas implements Runnable, KeyListener
             // TIRO E EXCLUIR TIRO
         if (e.getKeyCode() == 32) {Game.player.kissy = false;} //Espaço
         if (e.getKeyCode() == 88) {Game.player.kissyRest = false;} //X
+        if (e.getKeyCode() == KeyEvent.VK_SHIFT) {Game.player.correr = false;} //Shift
     }
     
 }

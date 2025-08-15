@@ -11,5 +11,6 @@ X to delete the current kiss in the screen
 [ ] Add score<br>
 [ ] Make use of the map maker<br>
 [X] Scale is not changing the walkable size of the map<br>
-[ ] Shift to run
-[ ] Rotate images to the direction they are running
+[X] Shift to run
+[ ] Rotate images to the direction they are facing
+[ ] Make Player leave trail when running

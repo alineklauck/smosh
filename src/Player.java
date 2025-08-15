@@ -12,13 +12,16 @@ public class Player
     public boolean right;
     public boolean kissy;
     public boolean kissyRest;
+    public boolean correr;
 
     // VARIÁVEIS DE POSIÇÃO
     public static int x;
     public static int y;
     public static int currentX;
     public static int currentY;
-    int velocidade = 6;
+    int velocidadeMinima = 6;
+    int velocidadeAtual = velocidadeMinima;
+    int velocidadeMaxima = 9;
 
     // VARIÁVEIS DE TAMANHO
     public static final int height = 50;
@@ -38,10 +41,12 @@ public class Player
     // 
     public void tick() {
         // MOVIMENTAÇÃO
-        if (this.up && Player.y > 0) {Player.y -= 6;}
-        if (this.down && Player.y < maxHEIGHT) {Player.y += this.velocidade;}
-        if (this.left && Player.x > 0) {Player.x -= 6;}
-        if (this.right && Player.x < maxWIDTH) {Player.x += this.velocidade;}
+        if (this.correr) { velocidadeAtual = velocidadeMaxima;}
+        else {velocidadeAtual = velocidadeMinima;}
+        if (this.up && Player.y > 0) {Player.y -= this.velocidadeAtual;}
+        if (this.down && Player.y < maxHEIGHT) {Player.y += this.velocidadeAtual;}
+        if (this.left && Player.x > 0) {Player.x -= this.velocidadeAtual;}
+        if (this.right && Player.x < maxWIDTH) {Player.x += this.velocidadeAtual;}
 
         // CRIA O TIRO NAS COORDENADAS DO PLAYER APENAS SE NÃO EXISTIR TIRO NENHUM
         if (this.kissy && Game.kissy == 0) {
